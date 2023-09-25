@@ -1,11 +1,8 @@
-import './globals.css'
-import { KumaRegistry } from '@kuma-ui/next-plugin/registry'
-import { Inter } from 'next/font/google'
 import React from 'react'
 
 import type { Metadata } from 'next'
 
-const inter = Inter({ subsets: ['latin'] })
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,10 +14,9 @@ const RootLayout: React.FC<{
 }> = ({ children }) => {
   return (
     <html lang='ja'>
-      <body className={inter.className}>
-        <KumaRegistry>{children}</KumaRegistry>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
+
 export default RootLayout
