@@ -2,39 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .skeleton {
-    overflow: hidden;
-    position: relative;
+html,
+body {
+  height: 100%;
+}
 
-    &:before,
-    &:after {
-      width: 75%;
-      animation: 4500ms cubic-bezier(0.4, 0, 0.2, 1) 0 infinite normal both
-        running ghost-loading-slide;
-    }
-
-    &:before {
-      animation-delay: -400ms;
-      background: linear-gradient(
-        90deg,
-        transparent 10%,
-        var(--mc10) 45%,
-        var(--mc10) 70%,
-        var(--mc2) 80%,
-        transparent 90%
-      );
-    }
-    &:after {
-      animation-delay: 850ms;
-      background: linear-gradient(
-        90deg,
-        transparent 10%,
-        var(--mc10) 45%,
-        var(--mc10) 70%,
-        var(--mc2) 80%,
-        transparent 90%
-      );
-    }
+@keyframes ghost-loading-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(38%);
   }
 }
