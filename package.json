@@ -12,6 +12,7 @@
     "fix": "pnpm run lint:fix && pnpm run fmt"
   },
   "dependencies": {
+    "@kuma-ui/core": "^1.4.1",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
@@ -24,6 +25,7 @@
     "yarn": "USE PNPM !!!!!!!!!"
   },
   "devDependencies": {
+    "@kuma-ui/next-plugin": "^1.1.9",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
