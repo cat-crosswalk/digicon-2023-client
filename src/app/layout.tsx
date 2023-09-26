@@ -15,6 +15,9 @@ const RootLayout: React.FC<{
 }> = ({ children }) => {
   return (
     <html lang='ja'>
+      <head>
+        <link rel='manifest' href='/manifest.json' />
+      </head>
       <body className={clsx('bg-bg-primary')}>{children}</body>
     </html>
   )
