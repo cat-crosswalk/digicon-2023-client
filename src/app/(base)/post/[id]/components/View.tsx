@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useRef } from 'react'
 
-import { main } from '@/features/splatting/main'
+import { renderSplatting } from '@/features/splatting'
 import { useWindowSize } from '@/utils/useWindowSize'
 
 interface Props {
@@ -34,7 +34,7 @@ export const View: React.FC<Props> = ({ id, splatSrc }) => {
     if (size === null) return
     const controller = new AbortController()
 
-    void main(
+    void renderSplatting(
       canvasRef.current,
       document.createElement('div'),
       splatSrc,

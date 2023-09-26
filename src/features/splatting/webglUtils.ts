@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2023 Kevin Kwok
+ *
+ * https://github.com/antimatter15/splat/blob/main/LICENSE
+ */
+
 import type { Camera } from './consts'
 
 export type Matrix = number[]

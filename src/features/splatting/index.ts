@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2023 Kevin Kwok
+ *
+ * https://github.com/antimatter15/splat/blob/main/LICENSE
+ */
+
 import { trimNumber } from '@/utils/trimNumber'
 
 import { CAMERA, CAMERAS, DEFAULT_VIEW_MATRIX } from './consts'
@@ -62,7 +68,7 @@ interface ReadonlyRefObject<T> {
   readonly current: T
 }
 
-export const main = async (
+export const renderSplatting = async (
   canvas: HTMLCanvasElement,
   spinner: HTMLElement,
   splatDataSrc: string,

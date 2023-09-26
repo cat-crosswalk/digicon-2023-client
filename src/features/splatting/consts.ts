@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2023 Kevin Kwok
+ *
+ * https://github.com/antimatter15/splat/blob/main/LICENSE
+ */
+
 export const CAMERAS = Object.freeze([
   {
     id: 0,
