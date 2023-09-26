@@ -7,7 +7,7 @@ interface Props {
 export const PopularTagElement: React.FC<Props> = ({ tag }) => {
   return (
     <Link
-      href='/'
+      href={`/search/${encodeURIComponent(tag)}`}
       className={clsx(
         'grid',
         'h-14',

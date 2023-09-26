@@ -4,6 +4,7 @@ import FavoriteIcon from '@material-symbols/svg-400/outlined/favorite.svg'
 import LocationOnIcon from '@material-symbols/svg-400/outlined/location_on.svg'
 import ShareIcon from '@material-symbols/svg-400/outlined/share.svg'
 import { clsx } from 'clsx'
+import Link from 'next/link'
 
 import type { Dayjs } from 'dayjs'
 
@@ -75,7 +76,9 @@ export const Info: React.FC<Props> = ({
       <p className={clsx('mt-2', 'font-medium')}>{description}</p>
       <ul className={clsx('flex', 'flex-wrap', 'gap-x-1', 'mt-2')}>
         {tags.map(tag => (
-          <li key={tag}>#{tag}</li>
+          <li key={tag}>
+            <Link href={`/search/${encodeURIComponent(tag)}`}>#{tag}</Link>
+          </li>
         ))}
       </ul>
     </div>
