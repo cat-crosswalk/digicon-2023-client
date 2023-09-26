@@ -57,7 +57,18 @@ const skeletonPlugin = plugin(({ matchComponents, theme }) => {
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        'fade-in-lazy': {
+          '0%': { opacity: '0' },
+          '50%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animation: {
+        'fade-in-lazy': 'fade-in-lazy 0.8s ease-in-out',
+      },
+    },
   },
   plugins: [skeletonPlugin],
 }

@@ -1,5 +1,7 @@
 import { clsx } from 'clsx'
-import Link from 'next/link'
+
+import { Preview } from '@/components/Preview'
+import { dummyVideoData } from '@/utils/dummy'
 
 import type { NextPage } from 'next'
 
@@ -17,17 +19,13 @@ const Favorites: NextPage = () => {
         )}
       />
       <div className={clsx('grid', 'grid-cols-2', 'gap-4', 'w-full')}>
-        {Array.from({ length: 8 }).map((_, i) => (
-          <Link
+        {dummyVideoData.map(({ title, thumb, source }, i) => (
+          <Preview
             key={i}
-            href={`/post/${i}`}
-            className={clsx(
-              'rounded-md',
-              'w-full',
-              'aspect-[3/4]',
-              'bg-slate-300',
-              'skeleton-orange-300'
-            )}
+            id={i.toString()}
+            title={title}
+            imgUrl={thumb}
+            videoUrl={source}
           />
         ))}
       </div>
