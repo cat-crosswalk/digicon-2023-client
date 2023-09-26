@@ -1,3 +1,4 @@
+import ArrowBackIosNewIcon from '@material-symbols/svg-400/outlined/arrow_back_ios_new.svg'
 import { clsx } from 'clsx'
 import Link from 'next/link'
 
@@ -20,15 +21,19 @@ const Post: NextPage<{
             href='/'
             className={clsx(
               'absolute',
-              'top-2',
-              'left-2',
+              'top-4',
+              'left-4',
               'w-8',
               'h-8',
-              'rounded-full',
-              'bg-slate-300',
-              'skeleton-orange-300'
+              'p-1',
+              'bg-bg-primary',
+              'rounded-xl'
             )}
-          />
+          >
+            <ArrowBackIosNewIcon
+              className={clsx('w-6', 'h-6', 'fill-text-primary')}
+            />
+          </Link>
         </div>
         <Relation />
       </div>

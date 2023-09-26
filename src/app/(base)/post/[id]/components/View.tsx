@@ -1,5 +1,7 @@
 'use client'
 
+import FullScreenIcon from '@material-symbols/svg-400/outlined/fullscreen.svg'
+import FullScreenExitIcon from '@material-symbols/svg-400/outlined/fullscreen_exit.svg'
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -47,15 +49,23 @@ export const View: React.FC<Props> = ({ id }) => {
         href={isExpanded ? `/post/${id}` : `/post/${id}?expanded`}
         className={clsx(
           'absolute',
-          'right-2',
-          'bottom-2',
+          'right-4',
+          'bottom-4',
           'w-8',
           'h-8',
-          'bg-slate-300',
-          'rounded-full',
-          'skeleton-orange-300'
+          'p-1',
+          'bg-bg-primary',
+          'rounded-xl'
         )}
-      />
+      >
+        {isExpanded ? (
+          <FullScreenExitIcon
+            className={clsx('w-6', 'h-6', 'fill-text-primary')}
+          />
+        ) : (
+          <FullScreenIcon className={clsx('w-6', 'h-6', 'fill-text-primary')} />
+        )}
+      </Link>
     </div>
   )
 }
