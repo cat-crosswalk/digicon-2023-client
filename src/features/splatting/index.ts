@@ -87,6 +87,7 @@ export const renderSplatting = async (
       credentials: 'omit', // include, *same-origin, omit
       signal,
     })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     if (e.name === 'AbortError') return
     throw e
