@@ -65,6 +65,14 @@ const squarePlugin = plugin(({ matchComponents, theme }) => {
   )
 })
 
+const outlineAutoPlugin = plugin(({ addUtilities }) => {
+  addUtilities({
+    '.outline-auto': {
+      outlineStyle: 'auto',
+    },
+  })
+})
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -82,7 +90,9 @@ module.exports = {
       },
       colors: {
         'bg-primary': '#202326',
+        'bg-secondary': '#D9D9D9',
         'text-primary': '#ffffff',
+        'text-secondary': '#6C7176',
         'ui-primary': 'rgba(255, 255, 255, 0.50)',
       },
       borderWidth: {
@@ -90,5 +100,5 @@ module.exports = {
       },
     },
   },
-  plugins: [skeletonPlugin, squarePlugin],
+  plugins: [skeletonPlugin, squarePlugin, outlineAutoPlugin],
 }
