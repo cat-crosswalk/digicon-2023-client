@@ -60,14 +60,16 @@ export const main = async (
   spinner: HTMLElement,
   splatDataSrc: string,
   canvasSize: {
-    width: number,
+    width: number
     height: number
-  }
+  },
+  signal?: AbortSignal
 ) => {
   const url = new URL(splatDataSrc)
   const response = await fetch(url, {
     mode: 'cors', // no-cors, *cors, same-origin
     credentials: 'omit', // include, *same-origin, omit
+    signal,
   })
 
   if (!response.ok) {
@@ -114,35 +116,39 @@ export const main = async (
   const { ext, centerBuffer, colorBuffer, covABuffer, covBBuffer, u_view } =
     webglInitialize(gl, canvas, projectionMatrix, viewMatrix, downsample)
 
-  worker.addEventListener('message', (e: MessageEvent<Message>) => {
-    if (e.data.buffer !== undefined) {
-      splatData = new Uint8Array(e.data.buffer)
-      const blob = new Blob([splatData.buffer], {
-        type: 'application/octet-stream',
-      })
-      const link = document.createElement('a')
-      link.download = 'model.splat'
-      link.href = URL.createObjectURL(blob)
-      document.body.appendChild(link)
-      link.click()
-    } else if (e.data.covA !== undefined) {
-      const { covA, covB, center, color } = e.data
+  worker.addEventListener(
+    'message',
+    (e: MessageEvent<Message>) => {
+      if (e.data.buffer !== undefined) {
+        splatData = new Uint8Array(e.data.buffer)
+        const blob = new Blob([splatData.buffer], {
+          type: 'application/octet-stream',
+        })
+        const link = document.createElement('a')
+        link.download = 'model.splat'
+        link.href = URL.createObjectURL(blob)
+        document.body.appendChild(link)
+        link.click()
+      } else if (e.data.covA !== undefined) {
+        const { covA, covB, center, color } = e.data
 
-      vertexCount = center.length / 3
+        vertexCount = center.length / 3
 
-      gl.bindBuffer(gl.ARRAY_BUFFER, centerBuffer)
-      gl.bufferData(gl.ARRAY_BUFFER, center, gl.DYNAMIC_DRAW)
+        gl.bindBuffer(gl.ARRAY_BUFFER, centerBuffer)
+        gl.bufferData(gl.ARRAY_BUFFER, center, gl.DYNAMIC_DRAW)
 
-      gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer)
-      gl.bufferData(gl.ARRAY_BUFFER, color, gl.DYNAMIC_DRAW)
+        gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer)
+        gl.bufferData(gl.ARRAY_BUFFER, color, gl.DYNAMIC_DRAW)
 
-      gl.bindBuffer(gl.ARRAY_BUFFER, covABuffer)
-      gl.bufferData(gl.ARRAY_BUFFER, covA, gl.DYNAMIC_DRAW)
+        gl.bindBuffer(gl.ARRAY_BUFFER, covABuffer)
+        gl.bufferData(gl.ARRAY_BUFFER, covA, gl.DYNAMIC_DRAW)
 
-      gl.bindBuffer(gl.ARRAY_BUFFER, covBBuffer)
-      gl.bufferData(gl.ARRAY_BUFFER, covB, gl.DYNAMIC_DRAW)
-    }
-  })
+        gl.bindBuffer(gl.ARRAY_BUFFER, covBBuffer)
+        gl.bufferData(gl.ARRAY_BUFFER, covB, gl.DYNAMIC_DRAW)
+      }
+    },
+    { signal }
+  )
 
   let startX: number | undefined
   let startY: number | undefined

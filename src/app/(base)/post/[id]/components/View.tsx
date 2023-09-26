@@ -26,7 +26,19 @@ export const View: React.FC<Props> = ({ id, splatSrc }) => {
   useEffect(() => {
     if (canvasRef.current === null) return
     if (size === null) return
-    void main(canvasRef.current, document.createElement('div'), splatSrc, size)
+    const controller = new AbortController()
+
+    void main(
+      canvasRef.current,
+      document.createElement('div'),
+      splatSrc,
+      size,
+      controller.signal
+    )
+
+    return () => {
+      controller.abort()
+    }
   }, [size, splatSrc])
 
   return (
