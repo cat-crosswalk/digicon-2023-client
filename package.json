@@ -12,6 +12,7 @@
     "fix": "pnpm run lint:fix && pnpm run fmt"
   },
   "dependencies": {
+    "@material-symbols/svg-400": "^0.13.0",
     "clsx": "^2.0.0",
     "next": "latest",
     "react": "latest",
@@ -26,6 +27,7 @@
     "yarn": "USE PNPM !!!!!!!!!"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
