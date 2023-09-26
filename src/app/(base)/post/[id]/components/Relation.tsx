@@ -21,10 +21,10 @@ export const Relation: React.FC = () => {
         類似したポスト
       </h2>
       <div className={clsx('mt-1', 'grid', 'grid-cols-2', 'gap-2', 'w-full')}>
-        {dummyVideoData.map(({ title, thumb, source }, i) => (
+        {dummyVideoData.map(({ id, title, thumb, source }) => (
           <Preview
-            key={i}
-            id={i.toString()}
+            key={id}
+            id={id}
             title={title}
             imgUrl={thumb}
             videoUrl={source}

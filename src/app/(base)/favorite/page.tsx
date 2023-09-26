@@ -19,10 +19,10 @@ const Favorites: NextPage = () => {
         )}
       />
       <div className={clsx('grid', 'grid-cols-2', 'gap-4', 'w-full')}>
-        {dummyVideoData.map(({ title, thumb, source }, i) => (
+        {dummyVideoData.map(({ id, title, thumb, source }) => (
           <Preview
-            key={i}
-            id={i.toString()}
+            key={id}
+            id={id}
             title={title}
             imgUrl={thumb}
             videoUrl={source}
