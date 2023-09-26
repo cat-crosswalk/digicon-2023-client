@@ -1,8 +1,8 @@
 import { clsx } from 'clsx'
 import Link from 'next/link'
 
-import { Preview } from './components/Preview'
 import { Relation } from './components/Relation'
+import { View } from './components/View'
 
 import type { NextPage } from 'next'
 
@@ -15,7 +15,7 @@ const Post: NextPage<{
     <div className={clsx('w-full')}>
       <div className={clsx('w-full')}>
         <div className={clsx('relative', 'w-full', 'aspect-[3/4]')}>
-          <Preview id={id} />
+          <View id={id} />
           <Link
             href='/'
             className={clsx(

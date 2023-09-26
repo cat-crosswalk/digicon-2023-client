@@ -9,7 +9,7 @@ interface Props {
   id: string
 }
 
-export const Preview: React.FC<Props> = ({ id }) => {
+export const View: React.FC<Props> = ({ id }) => {
   const searchParams = useSearchParams()
   const isExpanded = useMemo(() => searchParams.has('expanded'), [searchParams])
 
