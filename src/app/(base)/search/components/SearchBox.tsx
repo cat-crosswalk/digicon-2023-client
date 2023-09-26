@@ -1,27 +1,66 @@
+'use client'
+
 import SearchIcon from '@material-symbols/svg-400/outlined/search.svg'
 import { clsx } from 'clsx'
+import { useRouter } from 'next/navigation'
+import { useCallback, useRef } from 'react'
 
-export const SearchBox: React.FC = () => {
+import type { FormEvent } from 'react'
+
+interface Props {
+  defaultWord?: string
+  hideIcon?: boolean
+}
+export const SearchBox: React.FC<Props> = ({
+  defaultWord = '',
+  hideIcon = false,
+}) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
+  const onSearch = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+
+      const { current } = inputRef
+      if (current === null) {
+        return
+      }
+
+      const word = current.value
+      if (word === '') {
+        return
+      }
+
+      router.push(`/search/${encodeURIComponent(word)}`)
+    },
+    [router]
+  )
+
   return (
-    <div className={clsx('w-full', 'px-4')}>
+    <form className={clsx('w-full', 'px-4')} onSubmit={onSearch}>
       <div
         className={clsx(
           'px-2',
           'py-1',
           'rounded-lg',
           'bg-bg-secondary',
-          'grid',
-          'grid-cols-[max-content,1fr]',
+          !hideIcon && clsx('grid', 'grid-cols-[max-content,1fr]', 'gap-2'),
           'items-center',
-          'gap-2',
           'focus-within:outline-1',
           'focus-within:outline-[-webkit-focus-ring-color]',
           'focus-within:outline-auto'
         )}
       >
-        <SearchIcon className={clsx('square-4', 'fill-text-secondary')} />
+        {!hideIcon && (
+          <SearchIcon className={clsx('square-4', 'fill-text-secondary')} />
+        )}
         <input
+          ref={inputRef}
+          defaultValue={defaultWord}
+          name='word'
+          type='search'
           className={clsx(
+            'w-full',
             'placeholder:text-text-secondary',
             'bg-transparent',
             'text-text-primary',
@@ -32,6 +71,6 @@ export const SearchBox: React.FC = () => {
           placeholder='〇〇を検索'
         />
       </div>
-    </div>
+    </form>
   )
 }

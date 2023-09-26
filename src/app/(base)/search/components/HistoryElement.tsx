@@ -19,7 +19,10 @@ export const HistoryElement: React.FC<Props> = ({ text, onRemove }) => {
         'grid-cols-[1fr,max-content]'
       )}
     >
-      <Link href='/' className={clsx('flex', 'items-center', 'gap-2')}>
+      <Link
+        href={`/search/${encodeURIComponent(text)}`}
+        className={clsx('flex', 'items-center', 'gap-2')}
+      >
         <HistoryIcon className={clsx('square-4', 'fill-current')} />
         <span className={clsx('text-sm')}>{text}</span>
       </Link>
