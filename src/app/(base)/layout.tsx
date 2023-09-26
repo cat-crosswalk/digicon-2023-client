@@ -16,7 +16,7 @@ const BaseLayout: React.FC<{
         'grid-rows-[1fr,max-content]'
       )}
     >
-      <main className={clsx('overflow-auto')}>{children}</main>
+      <main className={clsx('overflow-overlay')}>{children}</main>
       <Nav />
     </div>
   )

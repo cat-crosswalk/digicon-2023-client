@@ -94,6 +94,7 @@ module.exports = {
         'text-primary': '#ffffff',
         'text-secondary': '#83888E',
         'ui-primary': 'rgba(255, 255, 255, 0.50)',
+        'accent-primary': '#d1f100',
       },
       borderWidth: {
         1: '1px',

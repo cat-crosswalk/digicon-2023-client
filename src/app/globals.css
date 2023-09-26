@@ -15,3 +15,32 @@ body {
     transform: translateX(38%);
   }
 }
+
+:root {
+  --sb-track-color: transparent;
+  --sb-thumb-color: rgb(255 255 255 / 0.2);
+  --sb-size: 3px;
+}
+
+* {
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
+
+*::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+.overflow-overlay {
+  overflow: auto;
+  overflow: overlay;
+}
