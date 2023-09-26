@@ -1,33 +1,39 @@
 import { clsx } from 'clsx'
-import Link from 'next/link'
+
+import { PopularTagElement } from './PopularTagElement'
+
+const dummyPopularTags = [
+  'sunlight',
+  'forest',
+  'nature',
+  'landscape',
+  'tree',
+  'mountains',
+  'dark',
+  'light',
+]
 
 export const Popular: React.FC = () => {
   return (
-    <div className={clsx('mt-16', 'w-full')}>
+    <section
+      className={clsx(
+        'px-2',
+        'py-4',
+        'w-full',
+        'border-t-1',
+        'border-t-ui-primary'
+      )}
+    >
       <h2
-        className={clsx(
-          'rounded-md',
-          'w-20',
-          'h-4',
-          'bg-slate-300',
-          'skeleton-orange-300'
-        )}
-      />
-      <div className={clsx('mt-8', 'grid', 'grid-cols-2', 'gap-4', 'w-full')}>
-        {Array.from({ length: 8 }).map((_, i) => (
-          <Link
-            key={i}
-            href='/'
-            className={clsx(
-              'rounded-lg',
-              'w-full',
-              'h-10',
-              'bg-slate-300',
-              'skeleton-orange-300'
-            )}
-          />
+        className={clsx('px-2', 'font-medium', 'text-sm', 'text-text-primary')}
+      >
+        おすすめのタグ
+      </h2>
+      <div className={clsx('mt-4', 'grid', 'grid-cols-2', 'gap-2', 'w-full')}>
+        {dummyPopularTags.map(tag => (
+          <PopularTagElement key={tag} tag={tag} />
         ))}
       </div>
-    </div>
+    </section>
   )
 }
