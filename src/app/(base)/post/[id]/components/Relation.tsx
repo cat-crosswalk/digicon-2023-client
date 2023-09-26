@@ -6,17 +6,21 @@ import { dummyVideoData } from '@/utils/dummy'
 
 export const Relation: React.FC = () => {
   return (
-    <section className={clsx('mt-16')}>
+    <section
+      className={clsx(
+        'mt-4',
+        'px-2',
+        'py-4',
+        'border-t-1',
+        'border-t-ui-primary'
+      )}
+    >
       <h2
-        className={clsx(
-          'rounded-md',
-          'w-20',
-          'h-4',
-          'bg-slate-300',
-          'skeleton-orange-300'
-        )}
-      />
-      <div className={clsx('mt-8', 'grid', 'grid-cols-2', 'gap-4', 'w-full')}>
+        className={clsx('px-2', 'text-text-primary', 'text-sm', 'font-medium')}
+      >
+        類似したポスト
+      </h2>
+      <div className={clsx('mt-1', 'grid', 'grid-cols-2', 'gap-2', 'w-full')}>
         {dummyVideoData.map(({ title, thumb, source }, i) => (
           <Preview
             key={i}
