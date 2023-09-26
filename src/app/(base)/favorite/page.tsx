@@ -7,18 +7,19 @@ import type { NextPage } from 'next'
 
 const Favorites: NextPage = () => {
   return (
-    <div className={clsx('flex', 'flex-col', 'items-center', 'p-8', 'gap-8')}>
-      <div
+    <div className={clsx('flex', 'flex-col', 'items-center', 'py-4', 'gap-4')}>
+      <h1
         className={clsx(
+          'text-text-primary',
+          'text-base',
           'self-start',
-          'rounded-4',
-          'w-20',
-          'h-5',
-          'bg-slate-300',
-          'skeleton-orange-300'
+          'px-4',
+          'font-medium'
         )}
-      />
-      <div className={clsx('grid', 'grid-cols-2', 'gap-4', 'w-full')}>
+      >
+        あなたのいいね
+      </h1>
+      <div className={clsx('grid', 'grid-cols-2', 'px-2', 'gap-2', 'w-full')}>
         {dummyVideoData.map(({ id, title, thumb, source }) => (
           <Preview
             key={id}
