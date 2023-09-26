@@ -90,9 +90,9 @@ module.exports = {
       },
       colors: {
         'bg-primary': '#202326',
-        'bg-secondary': '#D9D9D9',
+        'bg-secondary': '#3F4245',
         'text-primary': '#ffffff',
-        'text-secondary': '#6C7176',
+        'text-secondary': '#83888E',
         'ui-primary': 'rgba(255, 255, 255, 0.50)',
       },
       borderWidth: {

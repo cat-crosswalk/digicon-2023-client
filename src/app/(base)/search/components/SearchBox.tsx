@@ -24,6 +24,8 @@ export const SearchBox: React.FC = () => {
           className={clsx(
             'placeholder:text-text-secondary',
             'bg-transparent',
+            'text-text-primary',
+            'caret-text-primary',
             'focus:outline-none',
             'focus-visible:outline-none'
           )}
