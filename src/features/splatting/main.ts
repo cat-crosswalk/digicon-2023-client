@@ -58,7 +58,11 @@ type Message = ViewMessage | PlyMessage | BufferMessage | CovAMessage
 export const main = async (
   canvas: HTMLCanvasElement,
   spinner: HTMLElement,
-  splatDataSrc: string
+  splatDataSrc: string,
+  canvasSize: {
+    width: number,
+    height: number
+  }
 ) => {
   const url = new URL(splatDataSrc)
   const response = await fetch(url, {
@@ -91,6 +95,9 @@ export const main = async (
     splatData.length / rowLength > 500000 ? 1 : 1 / window.devicePixelRatio
 
   const worker = newWorker()
+
+  canvas.width = canvasSize.width / downsample
+  canvas.height = canvasSize.height / downsample
 
   const projectionMatrix = getProjectionMatrix(
     CAMERA.fx / downsample,
