@@ -8,7 +8,7 @@ import type { NextPage } from 'next'
 
 const Search: NextPage = () => {
   return (
-    <div className={clsx('flex', 'flex-col', 'items-center', 'p-8', 'gap-8')}>
+    <div className={clsx('flex', 'flex-col', 'items-center', 'py-4', 'gap-4')}>
       <SearchBox />
       <History />
       <Popular />

@@ -18,7 +18,7 @@ export const History: React.FC = () => {
   }
 
   return (
-    <div className={clsx('grid', 'gap-4', 'w-full')}>
+    <div className={clsx('grid', 'gap-4', 'w-full', 'px-4')}>
       {data.map(text => (
         <HistoryElement key={text} text={text} onRemove={removeHistory} />
       ))}
