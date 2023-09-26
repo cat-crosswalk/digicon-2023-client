@@ -80,11 +80,17 @@ export const renderSplatting = async (
   signal?: AbortSignal
 ) => {
   const url = new URL(splatDataSrc)
-  const response = await fetch(url, {
-    mode: 'cors', // no-cors, *cors, same-origin
-    credentials: 'omit', // include, *same-origin, omit
-    signal,
-  })
+  let response: Response
+  try {
+    response = await fetch(url, {
+      mode: 'cors', // no-cors, *cors, same-origin
+      credentials: 'omit', // include, *same-origin, omit
+      signal,
+    })
+  } catch (e: any) {
+    if (e.name === 'AbortError') return
+    throw e
+  }
 
   if (!response.ok) {
     throw new Error(`fetch failed: ${response.status}`)
