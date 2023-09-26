@@ -23,6 +23,12 @@ export const View: React.FC<Props> = ({ id, splatSrc }) => {
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
+  // NOTE: 参照を同じにするために useRef を使う
+  const allowKeyboardControls = useRef<boolean>(false)
+  useEffect(() => {
+    allowKeyboardControls.current = isExpanded
+  }, [isExpanded])
+
   useEffect(() => {
     if (canvasRef.current === null) return
     if (size === null) return
@@ -33,6 +39,7 @@ export const View: React.FC<Props> = ({ id, splatSrc }) => {
       document.createElement('div'),
       splatSrc,
       size,
+      allowKeyboardControls,
       controller.signal
     )
 
@@ -40,6 +47,13 @@ export const View: React.FC<Props> = ({ id, splatSrc }) => {
       controller.abort()
     }
   }, [size, splatSrc])
+
+  useEffect(() => {
+    if (canvasRef.current === null) return
+    if (!isExpanded) return
+
+    canvasRef.current.focus()
+  }, [isExpanded])
 
   return (
     <div
@@ -69,6 +83,8 @@ export const View: React.FC<Props> = ({ id, splatSrc }) => {
           />
           <canvas
             ref={canvasRef}
+            tabIndex={isExpanded ? 0 : -1}
+            autoFocus={isExpanded}
             className={clsx(
               'bg-transparent',
               'absolute',

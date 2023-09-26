@@ -1,8 +1,11 @@
-import { CAMERA, DEFAULT_VIEW_MATRIX } from './consts'
+import { trimNumber } from '@/utils/trimNumber'
+
+import { CAMERA, CAMERAS, DEFAULT_VIEW_MATRIX } from './consts'
 import { newWorker } from './createWorker.mjs'
 import { webglInitialize } from './webglInitialize'
 import {
   getProjectionMatrix,
+  getViewMatrix,
   invert4,
   multiply4,
   rotate4,
@@ -55,6 +58,10 @@ const toNumber = (x: string | null | undefined): number | null => {
 
 type Message = ViewMessage | PlyMessage | BufferMessage | CovAMessage
 
+interface ReadonlyRefObject<T> {
+  readonly current: T
+}
+
 export const main = async (
   canvas: HTMLCanvasElement,
   spinner: HTMLElement,
@@ -63,6 +70,7 @@ export const main = async (
     width: number
     height: number
   },
+  allowKeyboardControl: ReadonlyRefObject<boolean>,
   signal?: AbortSignal
 ) => {
   const url = new URL(splatDataSrc)
@@ -78,9 +86,9 @@ export const main = async (
   if (response.body === null) {
     throw new Error('response.body is null')
   }
-  const carousel = true
+  let carousel = true
 
-  const jumpDelta = 0
+  let jumpDelta = 0
   let vertexCount = 0
 
   let start = 0
@@ -150,11 +158,298 @@ export const main = async (
     { signal }
   )
 
+  const activeKeys = new Set<string>()
+
+  window.addEventListener(
+    'keydown',
+    e => {
+      if (!allowKeyboardControl.current) return
+      if (document.activeElement !== canvas) return
+      carousel = false
+
+      if (!activeKeys.has(e.key)) {
+        activeKeys.add(e.key)
+      }
+      if (/\d/.test(e.key)) {
+        viewMatrix = getViewMatrix(CAMERAS[Number(e.key)])
+      }
+
+      switch (e.key) {
+        case 'p':
+          carousel = true
+          break
+      }
+    },
+    { signal }
+  )
+  window.addEventListener(
+    'keyup',
+    e => {
+      activeKeys.delete(e.key)
+    },
+    { signal }
+  )
+  window.addEventListener(
+    'blur',
+    () => {
+      activeKeys.clear()
+    },
+    { signal }
+  )
+  window.addEventListener(
+    'wheel',
+    e => {
+      if (!allowKeyboardControl.current) return
+
+      carousel = false
+      e.preventDefault()
+      const lineHeight = 10
+      const scale =
+        e.deltaMode === 1
+          ? lineHeight
+          : e.deltaMode === 2
+          ? canvasSize.height
+          : 1
+      let inv = invert4(viewMatrix)
+      if (inv === null) {
+        throw new Error('inv is null')
+      }
+      if (e.shiftKey) {
+        inv = translate4(
+          inv,
+          (e.deltaX * scale) / canvasSize.width,
+          (e.deltaY * scale) / canvasSize.height,
+          0
+        )
+      } else if (e.ctrlKey || e.metaKey) {
+        const preY = inv[13]
+        inv = translate4(
+          inv,
+          0,
+          0,
+          (-10 * (e.deltaY * scale)) / canvasSize.height
+        )
+        inv[13] = preY
+      } else {
+        const d = 4
+        inv = translate4(inv, 0, 0, d)
+        inv = rotate4(inv, -(e.deltaX * scale) / canvasSize.width, 0, 1, 0)
+        inv = rotate4(inv, (e.deltaY * scale) / canvasSize.height, 1, 0, 0)
+        inv = translate4(inv, 0, 0, -d)
+      }
+
+      const invinv = invert4(inv)
+      if (invinv === null) {
+        throw new Error('invinv is null')
+      }
+      viewMatrix = invinv
+    },
+    { passive: false, signal }
+  )
+
   let startX: number | undefined
   let startY: number | undefined
   let down: 1 | 2 | false | undefined
+  canvas.addEventListener(
+    'mousedown',
+    e => {
+      carousel = false
+      e.preventDefault()
+      startX = e.clientX
+      startY = e.clientY
+      down = e.ctrlKey || e.metaKey ? 2 : 1
+    },
+    { signal }
+  )
+  canvas.addEventListener(
+    'contextmenu',
+    e => {
+      carousel = false
+      e.preventDefault()
+      startX = e.clientX
+      startY = e.clientY
+      down = 2
+    },
+    { signal }
+  )
+
+  canvas.addEventListener(
+    'mousemove',
+    e => {
+      e.preventDefault()
+      if (startX === undefined || startY === undefined) {
+        return
+      }
+      if (down === 1) {
+        let inv = invert4(viewMatrix)
+        if (inv === null) {
+          throw new Error('inv is null')
+        }
+        const dx = (5 * (e.clientX - startX)) / canvasSize.width
+        const dy = (5 * (e.clientY - startY)) / canvasSize.height
+        const d = 4
+
+        inv = translate4(inv, 0, 0, d)
+        inv = rotate4(inv, dx, 0, 1, 0)
+        inv = rotate4(inv, -dy, 1, 0, 0)
+        inv = translate4(inv, 0, 0, -d)
+
+        const invinv = invert4(inv)
+        if (invinv === null) {
+          throw new Error('invinv is null')
+        }
+        viewMatrix = invinv
+
+        startX = e.clientX
+        startY = e.clientY
+      } else if (down === 2) {
+        let inv = invert4(viewMatrix)
+        if (inv === null) {
+          throw new Error('inv is null')
+        }
+        const preY = inv[13]
+        inv = translate4(
+          inv,
+          (-10 * (e.clientX - startX)) / canvasSize.width,
+          0,
+          (10 * (e.clientY - startY)) / canvasSize.height
+        )
+        inv[13] = preY
+        const invinv = invert4(inv)
+        if (invinv === null) {
+          throw new Error('invinv is null')
+        }
+        viewMatrix = invinv
+
+        startX = e.clientX
+        startY = e.clientY
+      }
+    },
+    { signal }
+  )
+  canvas.addEventListener(
+    'mouseup',
+    e => {
+      e.preventDefault()
+      startX = undefined
+      startY = undefined
+      down = undefined
+    },
+    { signal }
+  )
+
+  let altX = 0,
+    altY = 0
+  canvas.addEventListener(
+    'touchstart',
+    e => {
+      e.preventDefault()
+      if (e.touches.length === 1) {
+        carousel = false
+        startX = e.touches[0].clientX
+        startY = e.touches[0].clientY
+        down = 1
+      } else if (e.touches.length === 2) {
+        carousel = false
+        startX = e.touches[0].clientX
+        altX = e.touches[1].clientX
+        startY = e.touches[0].clientY
+        altY = e.touches[1].clientY
+        down = 1
+      }
+    },
+    { passive: false, signal }
+  )
+  canvas.addEventListener(
+    'touchmove',
+    e => {
+      e.preventDefault()
+      if (startX === undefined || startY === undefined) {
+        return
+      }
+      if (e.touches.length === 1 && down !== undefined) {
+        let inv = invert4(viewMatrix)
+        if (inv === null) {
+          throw new Error('inv is null')
+        }
+        const dx = (4 * (e.touches[0].clientX - startX)) / canvasSize.width
+        const dy = (4 * (e.touches[0].clientY - startY)) / canvasSize.height
+        const d = 4
+
+        inv = translate4(inv, 0, 0, d)
+        inv = rotate4(inv, dx, 0, 1, 0)
+        inv = rotate4(inv, -dy, 1, 0, 0)
+        inv = translate4(inv, 0, 0, -d)
+
+        const invinv = invert4(inv)
+        if (invinv === null) {
+          throw new Error('invinv is null')
+        }
+
+        viewMatrix = invinv
+
+        startX = e.touches[0].clientX
+        startY = e.touches[0].clientY
+      } else if (e.touches.length === 2) {
+        const dtheta =
+          Math.atan2(startY - altY, startX - altX) -
+          Math.atan2(
+            e.touches[0].clientY - e.touches[1].clientY,
+            e.touches[0].clientX - e.touches[1].clientX
+          )
+        const dscale =
+          Math.hypot(startX - altX, startY - altY) /
+          Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          )
+        const dx =
+          (e.touches[0].clientX + e.touches[1].clientX - (startX + altX)) / 2
+        const dy =
+          (e.touches[0].clientY + e.touches[1].clientY - (startY + altY)) / 2
+
+        let inv = invert4(viewMatrix)
+        if (inv === null) {
+          throw new Error('inv is null')
+        }
+
+        inv = rotate4(inv, dtheta, 0, 0, 1)
+        inv = translate4(inv, -dx / canvasSize.width, dy / canvasSize.height, 0)
+
+        const preY = inv[13]
+        inv = translate4(inv, 0, 0, 3 * (1 - dscale))
+        inv[13] = preY
+
+        const invinv = invert4(inv)
+        if (invinv === null) {
+          throw new Error('invinv is null')
+        }
+        viewMatrix = invinv
+
+        startX = e.touches[0].clientX
+        startY = e.touches[0].clientY
+        altX = e.touches[1].clientX
+        altY = e.touches[1].clientY
+      }
+    },
+    { passive: false, signal }
+  )
+  canvas.addEventListener(
+    'touchend',
+    e => {
+      e.preventDefault()
+      startX = undefined
+      startY = undefined
+      down = undefined
+    },
+    { passive: false, signal }
+  )
 
   const frame = () => {
+    if (signal?.aborted === true) return
+
+    viewMatrix = handleActiveKeys(activeKeys, viewMatrix)
+
     if (carousel) {
       let inv = invert4(DEFAULT_VIEW_MATRIX)
       if (inv === null) {
@@ -172,6 +467,13 @@ export const main = async (
 
       viewMatrix = invinv
     }
+
+    if (activeKeys.has(' ')) {
+      jumpDelta += 0.05
+    } else {
+      jumpDelta -= 0.95
+    }
+    jumpDelta = trimNumber(0, 1)(jumpDelta)
 
     let inv2 = invert4(viewMatrix)
     if (inv2 === null) {
@@ -225,4 +527,83 @@ export const main = async (
     buffer: splatData.buffer,
     vertexCount: Math.floor(bytesRead / rowLength),
   } satisfies BufferMessage)
+}
+
+const handleActiveKeys = (activeKeys: Set<string>, viewMatrix: Matrix) => {
+  let inv = invert4(viewMatrix)
+  if (inv === null) {
+    throw new Error('inv is null')
+  }
+  if (activeKeys.has('ArrowUp')) {
+    if (activeKeys.has('Shift')) {
+      inv = translate4(inv, 0, -0.03, 0)
+    } else {
+      const preY = inv[13]
+      inv = translate4(inv, 0, 0, 0.1)
+      inv[13] = preY
+    }
+  }
+
+  if (activeKeys.has('ArrowDown')) {
+    if (activeKeys.has('Shift')) {
+      inv = translate4(inv, 0, 0.03, 0)
+    } else {
+      const preY = inv[13]
+      inv = translate4(inv, 0, 0, -0.1)
+      inv[13] = preY
+    }
+  }
+
+  if (activeKeys.has('ArrowLeft')) {
+    inv = translate4(inv, -0.03, 0, 0)
+  }
+  if (activeKeys.has('ArrowRight')) {
+    inv = translate4(inv, 0.03, 0, 0)
+  }
+
+  if (activeKeys.has('a')) {
+    inv = rotate4(inv, -0.01, 0, 1, 0)
+  }
+  if (activeKeys.has('d')) {
+    inv = rotate4(inv, 0.01, 0, 1, 0)
+  }
+  if (activeKeys.has('q')) {
+    inv = rotate4(inv, 0.01, 0, 0, 1)
+  }
+  if (activeKeys.has('e')) {
+    inv = rotate4(inv, -0.01, 0, 0, 1)
+  }
+  if (activeKeys.has('w')) {
+    inv = rotate4(inv, 0.005, 1, 0, 0)
+  }
+  if (activeKeys.has('s')) {
+    inv = rotate4(inv, -0.005, 1, 0, 0)
+  }
+
+  if (['j', 'k', 'l', 'i'].some(k => activeKeys.has(k))) {
+    const d = 4
+    inv = translate4(inv, 0, 0, d)
+    inv = rotate4(
+      inv,
+      activeKeys.has('j') ? -0.05 : activeKeys.has('l') ? 0.05 : 0,
+      0,
+      1,
+      0
+    )
+    inv = rotate4(
+      inv,
+      activeKeys.has('i') ? 0.05 : activeKeys.has('k') ? -0.05 : 0,
+      1,
+      0,
+      0
+    )
+    inv = translate4(inv, 0, 0, -d)
+  }
+
+  const invinv = invert4(inv)
+  if (invinv === null) {
+    throw new Error('invinv is null')
+  }
+
+  return invinv
 }
