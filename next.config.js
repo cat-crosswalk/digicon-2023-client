@@ -22,6 +22,10 @@ const nextConfig = {
         use: ['@svgr/webpack'],
       }
     )
+    config.module.rules.push({
+      resourceQuery: /raw/,
+      type: 'asset/source',
+    })
 
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     // fileLoaderRule.exclude = /\.svg$/i
