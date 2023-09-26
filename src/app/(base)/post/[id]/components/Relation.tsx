@@ -7,13 +7,7 @@ import { dummyVideoData } from '@/utils/dummy'
 export const Relation: React.FC = () => {
   return (
     <section
-      className={clsx(
-        'mt-4',
-        'px-2',
-        'py-4',
-        'border-t-1',
-        'border-t-ui-primary'
-      )}
+      className={clsx('px-2', 'py-4', 'border-t-1', 'border-t-ui-primary')}
     >
       <h2
         className={clsx('px-2', 'text-text-primary', 'text-sm', 'font-medium')}

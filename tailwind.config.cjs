@@ -53,6 +53,18 @@ const skeletonPlugin = plugin(({ matchComponents, theme }) => {
   )
 })
 
+const squarePlugin = plugin(({ matchComponents, theme }) => {
+  matchComponents(
+    {
+      square: value => ({
+        width: value,
+        height: value,
+      }),
+    },
+    { values: theme('spacing') }
+  )
+})
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -78,5 +90,5 @@ module.exports = {
       },
     },
   },
-  plugins: [skeletonPlugin],
+  plugins: [skeletonPlugin, squarePlugin],
 }

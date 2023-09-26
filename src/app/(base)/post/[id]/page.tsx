@@ -2,6 +2,7 @@ import ArrowBackIosNewIcon from '@material-symbols/svg-400/outlined/arrow_back_i
 import { clsx } from 'clsx'
 import Link from 'next/link'
 
+import { InfoSection } from './components/InfoSection'
 import { Relation } from './components/Relation'
 import { View } from './components/View'
 
@@ -35,6 +36,7 @@ const Post: NextPage<{
             />
           </Link>
         </div>
+        <InfoSection id={id} />
         <Relation />
       </div>
     </div>
