@@ -1,3 +1,4 @@
+import { clsx } from 'clsx'
 import React from 'react'
 
 import type { Metadata } from 'next'
@@ -14,7 +15,7 @@ const RootLayout: React.FC<{
 }> = ({ children }) => {
   return (
     <html lang='ja'>
-      <body>{children}</body>
+      <body className={clsx('bg-bg-primary')}>{children}</body>
     </html>
   )
 }

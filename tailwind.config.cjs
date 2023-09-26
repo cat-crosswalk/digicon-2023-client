@@ -68,6 +68,14 @@ module.exports = {
       animation: {
         'fade-in-lazy': 'fade-in-lazy 0.8s ease-in-out',
       },
+      colors: {
+        'bg-primary': '#202326',
+        'text-primary': '#ffffff',
+        'ui-primary': 'rgba(255, 255, 255, 0.50)',
+      },
+      borderWidth: {
+        1: '1px',
+      },
     },
   },
   plugins: [skeletonPlugin],

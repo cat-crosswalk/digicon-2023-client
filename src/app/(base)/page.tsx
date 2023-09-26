@@ -7,7 +7,7 @@ import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
   return (
-    <div className={clsx('flex', 'flex-col', 'items-center', 'p-8', 'gap-8')}>
+    <div className={clsx('flex', 'flex-col', 'items-center', 'py-8', 'gap-8')}>
       <div
         className={clsx(
           'rounded-full',
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
           'skeleton-orange-300'
         )}
       />
-      <div className={clsx('grid', 'grid-cols-2', 'gap-4', 'w-full')}>
+      <div className={clsx('grid', 'grid-cols-2', 'px-2', 'gap-2', 'w-full')}>
         {dummyVideoData.map(({ id, title, thumb, source }) => (
           <Preview
             key={id}
