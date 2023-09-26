@@ -5,6 +5,8 @@ import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
 import { useCallback, useRef } from 'react'
 
+import { useHistory } from '../utils/useHistory'
+
 import type { FormEvent } from 'react'
 
 interface Props {
@@ -17,8 +19,11 @@ export const SearchBox: React.FC<Props> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
+  const {
+    mutate: { addHistory },
+  } = useHistory()
   const onSearch = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
+    async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
 
       const { current } = inputRef
@@ -31,9 +36,10 @@ export const SearchBox: React.FC<Props> = ({
         return
       }
 
+      await addHistory(word)
       router.push(`/search/${encodeURIComponent(word)}`)
     },
-    [router]
+    [addHistory, router]
   )
 
   return (
