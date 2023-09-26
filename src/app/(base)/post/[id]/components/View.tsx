@@ -2,6 +2,7 @@
 
 import FullScreenIcon from '@material-symbols/svg-400/outlined/fullscreen.svg'
 import FullScreenExitIcon from '@material-symbols/svg-400/outlined/fullscreen_exit.svg'
+import PhotoCameraIcon from '@material-symbols/svg-400/outlined/photo_camera.svg'
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -35,15 +36,16 @@ export const View: React.FC<Props> = ({ id }) => {
         <button
           className={clsx(
             'absolute',
-            'top-2',
-            'right-2',
-            'w-8',
-            'h-8',
-            'bg-slate-300',
-            'rounded-full',
-            'skeleton-orange-300'
+            'top-4',
+            'right-4',
+            'square-8',
+            'p-1',
+            'bg-bg-primary',
+            'rounded-xl'
           )}
-        />
+        >
+          <PhotoCameraIcon className={clsx('square-6', 'fill-text-primary')} />
+        </button>
       ) : null}
       <Link
         href={isExpanded ? `/post/${id}` : `/post/${id}?expanded`}
