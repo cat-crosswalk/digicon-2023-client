@@ -84,9 +84,21 @@ module.exports = {
           '50%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
+        flash: {
+          '0%': {
+            opacity: '0',
+          },
+          '20%': {
+            opacity: '1',
+          },
+          '100%': {
+            opacity: '0',
+          },
+        },
       },
       animation: {
         'fade-in-lazy': 'fade-in-lazy 0.8s ease-in-out',
+        flash: 'flash 0.5s ease-out',
       },
       colors: {
         'bg-primary': '#202326',

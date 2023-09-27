@@ -70,13 +70,14 @@ interface ReadonlyRefObject<T> {
 
 export const renderSplatting = async (
   canvas: HTMLCanvasElement,
-  spinner: HTMLElement,
   splatDataSrc: string,
   canvasSize: {
     width: number
     height: number
   },
   allowKeyboardControl: ReadonlyRefObject<boolean>,
+  onLoadingChange: (loaded: boolean) => void,
+  wantScreenshot: ReadonlyRefObject<EventTarget | null>,
   signal?: AbortSignal
 ) => {
   const url = new URL(splatDataSrc)
@@ -504,13 +505,20 @@ export const renderSplatting = async (
     worker.postMessage({ view: viewProj } satisfies ViewMessage)
 
     if (vertexCount > 0) {
-      spinner.style.display = 'none'
+      onLoadingChange(true)
       gl.uniformMatrix4fv(u_view, false, actualViewMatrix)
       ext.drawArraysInstancedANGLE(gl.TRIANGLE_FAN, 0, 4, vertexCount)
     } else {
       gl.clear(gl.COLOR_BUFFER_BIT)
-      spinner.style.display = 'block'
+      onLoadingChange(false)
       start = Date.now() + 2000
+    }
+
+    if (wantScreenshot.current !== null) {
+      const blob = canvas.toDataURL('image/png')
+      wantScreenshot.current.dispatchEvent(
+        new CustomEvent('screenshot', { detail: blob })
+      )
     }
 
     requestAnimationFrame(frame)
@@ -521,6 +529,10 @@ export const renderSplatting = async (
   let lastVertexCount = -1
 
   for (;;) {
+    if (signal?.aborted === true) {
+      worker.terminate()
+      return
+    }
     const { done, value } = await reader.read()
     if (done) break
 
