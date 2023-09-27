@@ -11,7 +11,7 @@ const Favorites: NextPage = () => {
       <h1
         className={clsx(
           'text-text-primary',
-          'text-base',
+          'text-xl',
           'self-start',
           'px-4',
           'font-medium'

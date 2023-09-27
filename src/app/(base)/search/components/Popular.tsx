@@ -25,7 +25,7 @@ export const Popular: React.FC = () => {
       )}
     >
       <h2
-        className={clsx('px-2', 'font-medium', 'text-sm', 'text-text-primary')}
+        className={clsx('px-2', 'font-medium', 'text-xl', 'text-text-primary')}
       >
         おすすめのタグ
       </h2>
