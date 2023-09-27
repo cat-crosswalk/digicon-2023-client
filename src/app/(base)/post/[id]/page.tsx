@@ -9,7 +9,30 @@ import { Relation } from './components/Relation'
 import { View } from './components/View'
 import { buttonStyle } from './styles/buttonStyle'
 
-import type { NextPage } from 'next'
+import type { Metadata, NextPage, ResolvingMetadata } from 'next'
+
+export async function generateMetadata(
+  { params: { id } }: { params: { id: string } },
+  _parent: ResolvingMetadata
+): Promise<Metadata> {
+  const work = await getWork(id)
+
+  return {
+    title: work.title,
+    description: work.description,
+    openGraph: {
+      title: work.title,
+      description: work.description,
+      images: [
+        {
+          url: work.thumbUrl,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  }
+}
 
 const Post: NextPage<{
   params: {

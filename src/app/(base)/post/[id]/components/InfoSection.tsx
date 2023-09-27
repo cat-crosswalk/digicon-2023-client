@@ -21,5 +21,12 @@ export const InfoSection: React.FC<Props> = ({ id }) => {
     [router]
   )
 
-  return <Info id={id} onFavorite={onFavorite} />
+  const onShare = useCallback(async () => {
+    await navigator.share({
+      title: document.title,
+      url: location.href,
+    })
+  }, [])
+
+  return <Info id={id} onFavorite={onFavorite} onShare={onShare} />
 }

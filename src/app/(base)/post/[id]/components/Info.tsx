@@ -11,8 +11,9 @@ import { getWork } from '@/api/getWork'
 interface Props {
   id: string
   onFavorite?: (id: string, value: boolean) => void
+  onShare?: () => void
 }
-export const Info: React.FC<Props> = async ({ id, onFavorite }) => {
+export const Info: React.FC<Props> = async ({ id, onFavorite, onShare }) => {
   const work = await getWork(id)
 
   return (
@@ -38,7 +39,7 @@ export const Info: React.FC<Props> = async ({ id, onFavorite }) => {
           </p>
         </div>
         <div>
-          <button className={clsx('p-1')}>
+          <button className={clsx('p-1')} onClick={onShare}>
             <ShareIcon className={clsx('square-6', 'fill-current')} />
           </button>
           {work.isFavorite !== undefined && (
