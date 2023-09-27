@@ -32,10 +32,8 @@ export const rawWorkToWork = (
   favoritesMap: Map<string, boolean>
 ): Work => ({
   ...rawWork,
-  // thumb: idToResourceUrl(rawWork.id).thumb,
-  // videoUrl: idToResourceUrl(rawWork.id).video,
-  thumbUrl: dummyVideoDataMap[rawWork.id].thumb,
-  videoUrl: dummyVideoDataMap[rawWork.id].source,
+  thumbUrl: idToResourceUrl(rawWork.id).thumb,
+  videoUrl: idToResourceUrl(rawWork.id).video,
   modelUrl: idToResourceUrl(rawWork.id).model,
   date: dayjs(rawWork.date),
   isFavorite: favoritesMap.get(rawWork.id) ?? false,
