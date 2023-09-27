@@ -32,22 +32,22 @@ export const Info: React.FC<Props> = ({
     <div className={clsx('p-4', 'text-text-primary')}>
       <div className={clsx('grid', 'grid-cols-[1fr,max-content]')}>
         <div>
-          <p className={clsx('flex', 'items-center', 'gap-[0.125rem]')}>
+          <p className={clsx('flex', 'items-center', 'gap-1')}>
             <CalendarMonthIcon
               className={clsx('square-[1.125rem]', 'fill-current')}
             />
             <time
               dateTime={uploadDate.format('YYYY-MM-DD')}
-              className={clsx('text-xs')}
+              className={clsx('text-sm')}
             >
               {uploadDate.format('MMMM DD, YYYY')}
             </time>
           </p>
-          <p className={clsx('mt-1', 'flex', 'items-center', 'gap-[0.125rem]')}>
+          <p className={clsx('mt-1', 'flex', 'items-center', 'gap-1')}>
             <LocationOnIcon
               className={clsx('square-[1.125rem]', 'fill-current')}
             />
-            <span className={clsx('text-xs')}>{place}</span>
+            <span className={clsx('text-sm')}>{place}</span>
           </p>
         </div>
         <div>
@@ -56,7 +56,7 @@ export const Info: React.FC<Props> = ({
           </button>
           {isFavorite !== undefined && (
             <button
-              className={clsx('p-1', 'ml-1')}
+              className={clsx('p-1', 'ml-2')}
               onClick={() => {
                 onFavorite?.(id, isFavorite !== true)
               }}
