@@ -105,6 +105,7 @@ module.exports = {
         'bg-secondary': '#3F4245',
         'text-primary': '#ffffff',
         'text-secondary': '#83888E',
+        'text-tertiary': '#AEC0D1',
         'ui-primary': 'rgba(255, 255, 255, 0.50)',
         'accent-primary': '#d1f100',
       },

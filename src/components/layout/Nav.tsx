@@ -1,8 +1,14 @@
 'use client'
 
+import AddCircleIconFill from '@material-symbols/svg-400/outlined/add_circle-fill.svg'
 import AddCircleIcon from '@material-symbols/svg-400/outlined/add_circle.svg'
+import FavoriteIconFill from '@material-symbols/svg-400/outlined/favorite-fill.svg'
 import FavoriteIcon from '@material-symbols/svg-400/outlined/favorite.svg'
+import HomeIconFill from '@material-symbols/svg-400/outlined/home-fill.svg'
 import HomeIcon from '@material-symbols/svg-400/outlined/home.svg'
+import PersonIconFill from '@material-symbols/svg-400/outlined/person-fill.svg'
+import PersonIcon from '@material-symbols/svg-400/outlined/person.svg'
+import SearchIconFill from '@material-symbols/svg-400/outlined/search-fill.svg'
 import SearchIcon from '@material-symbols/svg-400/outlined/search.svg'
 import { clsx } from 'clsx'
 import Link from 'next/link'
@@ -12,32 +18,38 @@ import React from 'react'
 interface Route {
   path: string
   icon: React.ReactNode
+  iconActive: React.ReactNode
 }
 
 const iconProps = Object.freeze({
-  className: clsx('w-6', 'h-6', 'fill-text-primary'),
+  className: clsx('w-6', 'h-6', 'fill-current'),
 })
 const Routes = [
   {
     path: '/',
     icon: <HomeIcon {...iconProps} />,
+    iconActive: <HomeIconFill {...iconProps} />,
   },
   {
     path: '/search',
     icon: <SearchIcon {...iconProps} />,
+    iconActive: <SearchIconFill {...iconProps} />,
   },
   {
     path: '/create',
     icon: <AddCircleIcon {...iconProps} />,
+    iconActive: <AddCircleIconFill {...iconProps} />,
   },
   {
     path: '/favorite',
     icon: <FavoriteIcon {...iconProps} />,
+    iconActive: <FavoriteIconFill {...iconProps} />,
   },
   // FIXME: favorite にしてるのはてきとう trailing slash をつけて key の重複を防ぐ
   {
     path: '/favorite/',
-    icon: <FavoriteIcon {...iconProps} />,
+    icon: <PersonIcon {...iconProps} />,
+    iconActive: <PersonIconFill {...iconProps} />,
   },
 ] as const satisfies readonly Route[]
 
@@ -55,7 +67,7 @@ export const Nav: React.FC = () => {
       )}
     >
       <ul className={clsx('flex', 'justify-between', 'h-full', 'items-center')}>
-        {Routes.map(({ path, icon }) => (
+        {Routes.map(({ path, icon, iconActive }) => (
           <li key={path} className={clsx()}>
             <Link
               aria-current={path === pathname ? 'page' : undefined}
@@ -66,10 +78,12 @@ export const Nav: React.FC = () => {
                 'w-10',
                 'h-10',
                 'aspect-square',
-                'text-text-primary'
+                'transition-colors',
+                'text-text-tertiary',
+                'aria-[current=page]:text-text-primary'
               )}
             >
-              {icon}
+              {pathname === path ? iconActive : icon}
             </Link>
           </li>
         ))}
