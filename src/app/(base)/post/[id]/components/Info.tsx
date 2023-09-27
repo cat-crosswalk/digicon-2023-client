@@ -72,7 +72,7 @@ export const Info: React.FC<Props> = ({
           )}
         </div>
       </div>
-      <h1 className={clsx('font-bold', 'mt-1')}>{title}</h1>
+      <h1 className={clsx('font-bold', 'mt-1', 'text-lg')}>{title}</h1>
       <p className={clsx('mt-2', 'font-medium')}>{description}</p>
       <ul className={clsx('flex', 'flex-wrap', 'gap-x-1', 'mt-2')}>
         {tags.map(tag => (
