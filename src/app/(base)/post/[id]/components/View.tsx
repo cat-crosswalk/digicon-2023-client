@@ -125,7 +125,8 @@ export const View: React.FC<Props> = ({ id, modelUrl }) => {
               'left-1/2',
               '-translate-x-1/2',
               'w-[var(--width)]',
-              'h-[var(--height)]'
+              'h-[var(--height)]',
+              'bg-white'
             )}
             style={
               {
