@@ -24,7 +24,7 @@ export const HistoryElement: React.FC<Props> = ({ text, onRemove }) => {
         className={clsx('flex', 'items-center', 'gap-2')}
       >
         <HistoryIcon className={clsx('square-4', 'fill-current')} />
-        <span className={clsx('text-sm')}>{text}</span>
+        <span className={clsx('text-base')}>{text}</span>
       </Link>
       <button
         className={clsx('square-5', 'grid', 'place-items-center')}
