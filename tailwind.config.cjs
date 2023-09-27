@@ -73,6 +73,14 @@ const outlineAutoPlugin = plugin(({ addUtilities }) => {
   })
 })
 
+const transitionPlugin = plugin(({ addComponents }) => {
+  addComponents({
+    '.transition-all-slow': {
+      transition: 'all 0.3s ease-out',
+    },
+  })
+})
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -115,5 +123,5 @@ module.exports = {
       },
     },
   },
-  plugins: [skeletonPlugin, squarePlugin, outlineAutoPlugin],
+  plugins: [skeletonPlugin, squarePlugin, outlineAutoPlugin, transitionPlugin],
 }
