@@ -538,7 +538,7 @@ export const renderSplatting = async (
       const result = await reader.read()
       done = result.done
       value = result.value
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       if (e.name === 'AbortError') return
       throw e

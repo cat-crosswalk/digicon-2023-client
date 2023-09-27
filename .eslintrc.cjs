@@ -64,7 +64,7 @@ module.exports = {
       { prefer: 'type-imports' },
     ],
   },
-  ignorePatterns: ['node_modules'],
+  ignorePatterns: ['node_modules', '*.js', '*.mjs', '*.cjs'],
   settings: {
     react: {
       version: 'detect',

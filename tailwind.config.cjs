@@ -102,6 +102,7 @@ module.exports = {
       },
       colors: {
         'bg-primary': '#202326',
+        'bg-primary-translucent': 'rgba(32, 35, 38, 0.75)',
         'bg-secondary': '#3F4245',
         'text-primary': '#ffffff',
         'text-secondary': '#83888E',
