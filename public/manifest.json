@@ -1,0 +1,17 @@
+{
+    "theme_color": "#ffffff",
+    "background_color": "#000000",
+    "display": "fullscreen",
+    "scope": "/",
+    "start_url": "/",
+    "name": "mikake",
+    "short_name": "mikake",
+    "description": "",
+    "icons": [
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
