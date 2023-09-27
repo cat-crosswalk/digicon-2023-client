@@ -7,7 +7,8 @@ import type { NextPage } from 'next'
 
 const Favorites: NextPage = async () => {
   const works = await getWorks()
-  const favorites = works.filter(work => work.isFavorite)
+  // const favorites = works.filter(work => work.isFavorite)
+  const favorites = works
 
   return (
     <div className={clsx('flex', 'flex-col', 'items-center', 'py-4', 'gap-4')}>
