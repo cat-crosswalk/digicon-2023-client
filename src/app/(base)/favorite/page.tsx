@@ -17,7 +17,7 @@ const Favorites: NextPage = () => {
           'font-medium'
         )}
       >
-        あなたのいいね
+        いいねしたモデル
       </h1>
       <div className={clsx('grid', 'grid-cols-2', 'px-2', 'gap-2', 'w-full')}>
         {dummyVideoData.map(({ id, title, thumb, source }) => (
