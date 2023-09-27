@@ -41,7 +41,6 @@ export const View: React.FC<Props> = ({ id }) => {
     target.addEventListener(
       'screenshot',
       ((data: CustomEvent<string>) => {
-
         const a = document.createElement('a')
         a.href = data.detail
         a.download = 'splatting.png'
@@ -138,7 +137,13 @@ export const View: React.FC<Props> = ({ id }) => {
           />
           <div
             ref={flashRef}
-            className={clsx('absolute', 'inset-0', 'bg-white', 'opacity-0')}
+            className={clsx(
+              'absolute',
+              'inset-0',
+              'bg-white',
+              'opacity-0',
+              'pointer-events-none'
+            )}
           />
         </div>
       </div>
