@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { InfoSection } from './components/InfoSection'
 import { Relation } from './components/Relation'
 import { View } from './components/View'
+import { buttonStyle } from './styles/buttonStyle'
 
 import type { NextPage } from 'next'
 
@@ -20,19 +21,10 @@ const Post: NextPage<{
           <View id={id} />
           <Link
             href='/'
-            className={clsx(
-              'absolute',
-              'top-4',
-              'left-4',
-              'w-8',
-              'h-8',
-              'p-1',
-              'bg-bg-primary',
-              'rounded-xl'
-            )}
+            className={clsx('absolute', 'top-4', 'left-4', buttonStyle)}
           >
             <ArrowBackIosNewIcon
-              className={clsx('w-6', 'h-6', 'fill-text-primary')}
+              className={clsx('square-5', 'fill-text-primary')}
             />
           </Link>
         </div>

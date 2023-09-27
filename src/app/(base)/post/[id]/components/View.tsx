@@ -12,6 +12,8 @@ import { renderSplatting } from '@/features/splatting'
 import { dummyVideoDataMap } from '@/utils/dummy'
 import { useWindowSize } from '@/utils/useWindowSize'
 
+import { buttonStyle } from '../styles/buttonStyle'
+
 interface Props {
   id: string
 }
@@ -149,15 +151,7 @@ export const View: React.FC<Props> = ({ id }) => {
       </div>
       {isExpanded ? (
         <button
-          className={clsx(
-            'absolute',
-            'top-4',
-            'right-4',
-            'square-8',
-            'p-1',
-            'bg-bg-primary',
-            'rounded-xl'
-          )}
+          className={clsx('absolute', 'top-4', 'right-4', buttonStyle)}
           onClick={onScreenShot}
         >
           <PhotoCameraIcon className={clsx('square-6', 'fill-text-primary')} />
@@ -165,23 +159,14 @@ export const View: React.FC<Props> = ({ id }) => {
       ) : null}
       <Link
         href={isExpanded ? `/post/${id}` : `/post/${id}?expanded`}
-        className={clsx(
-          'absolute',
-          'right-4',
-          'bottom-4',
-          'w-8',
-          'h-8',
-          'p-1',
-          'bg-bg-primary',
-          'rounded-xl'
-        )}
+        className={clsx('absolute', 'right-4', 'bottom-4', buttonStyle)}
       >
         {isExpanded ? (
           <FullScreenExitIcon
-            className={clsx('w-6', 'h-6', 'fill-text-primary')}
+            className={clsx('square-6', 'fill-text-primary')}
           />
         ) : (
-          <FullScreenIcon className={clsx('w-6', 'h-6', 'fill-text-primary')} />
+          <FullScreenIcon className={clsx('square-6', 'fill-text-primary')} />
         )}
       </Link>
     </div>
