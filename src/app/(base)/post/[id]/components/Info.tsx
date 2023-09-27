@@ -43,7 +43,11 @@ export const Info: React.FC<Props> = async ({ id, onFavorite }) => {
           </button>
           {work.isFavorite !== undefined && (
             <button
-              className={clsx('p-1', 'ml-2')}
+              className={clsx(
+                'p-1',
+                'ml-2',
+                work.isFavorite && 'text-accent-favorite'
+              )}
               onClick={() => {
                 onFavorite?.(id, work.isFavorite !== true)
               }}

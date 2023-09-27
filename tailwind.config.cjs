@@ -117,6 +117,7 @@ module.exports = {
         'text-tertiary': '#AEC0D1',
         'ui-primary': 'rgba(255, 255, 255, 0.50)',
         'accent-primary': '#d1f100',
+        'accent-favorite': '#DB2216',
       },
       borderWidth: {
         1: '1px',
