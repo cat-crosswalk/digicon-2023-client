@@ -88,7 +88,7 @@ export const renderSplatting = async (
       credentials: 'omit', // include, *same-origin, omit
       signal,
     })
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     if (e.name === 'AbortError') return
     throw e
@@ -533,8 +533,17 @@ export const renderSplatting = async (
       worker.terminate()
       return
     }
-    const { done, value } = await reader.read()
-    if (done) break
+    let done: boolean, value: Uint8Array | undefined
+    try {
+      const result = await reader.read()
+      done = result.done
+      value = result.value
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      if (e.name === 'AbortError') return
+      throw e
+    }
+    if (done || value === undefined) break
 
     splatData.set(value, bytesRead)
     bytesRead += value.length
