@@ -9,17 +9,20 @@ import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { renderSplatting } from '@/features/splatting'
+import { dummyVideoDataMap } from '@/utils/dummy'
 import { useWindowSize } from '@/utils/useWindowSize'
 
 interface Props {
   id: string
-  splatSrc: string
 }
 
-export const View: React.FC<Props> = ({ id, splatSrc }) => {
+export const View: React.FC<Props> = ({ id }) => {
   const searchParams = useSearchParams()
   const isExpanded = useMemo(() => searchParams.has('expanded'), [searchParams])
   const size = useWindowSize()
+  const splatSrc = useMemo(() => {
+    return dummyVideoDataMap[id]?.splatFileSrc ?? ''
+  }, [id])
   const [isLoading, setIsLoading] = useState(true)
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
