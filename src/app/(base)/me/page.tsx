@@ -1,11 +1,13 @@
 import { clsx } from 'clsx'
 
+import { getWorks } from '@/api/getWorks'
 import { Preview } from '@/components/Preview'
-import { dummyVideoData } from '@/utils/dummy'
 
 import type { NextPage } from 'next'
 
-const Me: NextPage = () => {
+const Me: NextPage = async () => {
+  const works = await getWorks()
+
   return (
     <div className={clsx('flex', 'flex-col', 'items-center', 'py-4', 'gap-4')}>
       <h1
@@ -20,13 +22,13 @@ const Me: NextPage = () => {
         投稿したモデル
       </h1>
       <div className={clsx('grid', 'grid-cols-2', 'px-2', 'gap-2', 'w-full')}>
-        {dummyVideoData.map(({ id, title, thumb, source }) => (
+        {works.map(({ id, title, thumbUrl, videoUrl }) => (
           <Preview
             key={id}
             id={id}
             title={title}
-            imgUrl={thumb}
-            videoUrl={source}
+            thumbUrl={thumbUrl}
+            videoUrl={videoUrl}
           />
         ))}
       </div>

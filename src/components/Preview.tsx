@@ -5,18 +5,18 @@ import React from 'react'
 interface Props {
   id: string
   title: string
-  imgUrl: string
+  thumbUrl: string
   videoUrl: string
 }
 
-export const Preview: React.FC<Props> = ({ id, title, imgUrl, videoUrl }) => {
+export const Preview: React.FC<Props> = ({ id, title, thumbUrl, videoUrl }) => {
   return (
     <Link
       aria-label={title}
       href={`/post/${id}`}
       style={
         {
-          '--bg-image': `url(${imgUrl})`,
+          '--bg-image': `url(${thumbUrl})`,
         } as React.CSSProperties
       }
       className={clsx(

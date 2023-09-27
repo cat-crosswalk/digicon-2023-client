@@ -2,6 +2,8 @@ import ArrowBackIosNewIcon from '@material-symbols/svg-400/outlined/arrow_back_i
 import { clsx } from 'clsx'
 import Link from 'next/link'
 
+import { getWork } from '@/api/getWork'
+
 import { InfoSection } from './components/InfoSection'
 import { Relation } from './components/Relation'
 import { View } from './components/View'
@@ -13,12 +15,14 @@ const Post: NextPage<{
   params: {
     id: string
   }
-}> = ({ params: { id } }) => {
+}> = async ({ params: { id } }) => {
+  const work = await getWork(id)
+
   return (
     <div className={clsx('w-full')}>
       <div className={clsx('w-full')}>
         <div className={clsx('relative', 'w-full', 'aspect-[3/4]')}>
-          <View id={id} />
+          <View id={id} modelUrl={work.modelUrl} />
           <Link
             href='/'
             className={clsx('absolute', 'top-4', 'left-4', buttonStyle)}

@@ -2,8 +2,8 @@ import ArrowBackIosNewIcon from '@material-symbols/svg-400/outlined/arrow_back_i
 import { clsx } from 'clsx'
 import Link from 'next/link'
 
+import { getWorks } from '@/api/getWorks'
 import { Preview } from '@/components/Preview'
-import { dummyVideoData } from '@/utils/dummy'
 
 import { SearchBox } from '../components/SearchBox'
 
@@ -13,8 +13,8 @@ const SearchResult: NextPage<{
   params: {
     word: string
   }
-}> = ({ params: { word } }) => {
-  const data = dummyVideoData
+}> = async ({ params: { word } }) => {
+  const works = await getWorks()
 
   return (
     <div>
@@ -40,13 +40,13 @@ const SearchResult: NextPage<{
         <SearchBox defaultWord={decodeURIComponent(word)} hideIcon />
       </div>
       <div className={clsx('grid', 'grid-cols-2', 'px-2', 'pb-4', 'gap-2')}>
-        {data.map(({ id, title, thumb, source }) => (
+        {works.map(({ id, title, thumbUrl, videoUrl }) => (
           <Preview
             key={id}
             id={id}
             title={title}
-            imgUrl={thumb}
-            videoUrl={source}
+            thumbUrl={thumbUrl}
+            videoUrl={videoUrl}
           />
         ))}
       </div>

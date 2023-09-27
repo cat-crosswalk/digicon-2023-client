@@ -20,7 +20,7 @@ export const Relation: React.FC = () => {
             key={id}
             id={id}
             title={title}
-            imgUrl={thumb}
+            thumbUrl={thumb}
             videoUrl={source}
           />
         ))}

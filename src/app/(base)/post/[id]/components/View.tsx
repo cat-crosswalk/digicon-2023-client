@@ -9,22 +9,19 @@ import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { renderSplatting } from '@/features/splatting'
-import { dummyVideoDataMap } from '@/utils/dummy'
 import { useWindowSize } from '@/utils/useWindowSize'
 
 import { buttonStyle } from '../styles/buttonStyle'
 
 interface Props {
   id: string
+  modelUrl: string
 }
 
-export const View: React.FC<Props> = ({ id }) => {
+export const View: React.FC<Props> = ({ id, modelUrl }) => {
   const searchParams = useSearchParams()
   const isExpanded = useMemo(() => searchParams.has('expanded'), [searchParams])
   const size = useWindowSize()
-  const splatSrc = useMemo(() => {
-    return dummyVideoDataMap[id]?.splatFileSrc ?? ''
-  }, [id])
   const [isLoading, setIsLoading] = useState(true)
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -71,7 +68,7 @@ export const View: React.FC<Props> = ({ id }) => {
 
     void renderSplatting(
       canvasRef.current,
-      splatSrc,
+      modelUrl,
       size,
       allowKeyboardControls,
       onLoadingChange,
@@ -82,7 +79,7 @@ export const View: React.FC<Props> = ({ id }) => {
     return () => {
       controller.abort()
     }
-  }, [onLoadingChange, size, splatSrc])
+  }, [onLoadingChange, size, modelUrl])
 
   useEffect(() => {
     if (canvasRef.current === null) return

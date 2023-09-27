@@ -1,11 +1,13 @@
 import { clsx } from 'clsx'
 
+import { getWorks } from '@/api/getWorks'
 import { Preview } from '@/components/Preview'
-import { dummyVideoData } from '@/utils/dummy'
 
 import type { NextPage } from 'next'
 
-const Home: NextPage = () => {
+const Home: NextPage = async () => {
+  const works = await getWorks()
+
   return (
     <div className={clsx('flex', 'flex-col', 'items-center', 'py-8', 'gap-8')}>
       <div
@@ -27,13 +29,13 @@ const Home: NextPage = () => {
           'auto-rows-max'
         )}
       >
-        {dummyVideoData.map(({ id, title, thumb, source }) => (
+        {works.map(({ id, title, thumbUrl, videoUrl }) => (
           <Preview
             key={id}
             id={id}
             title={title}
-            imgUrl={thumb}
-            videoUrl={source}
+            thumbUrl={thumbUrl}
+            videoUrl={videoUrl}
           />
         ))}
       </div>

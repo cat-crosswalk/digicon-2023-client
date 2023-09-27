@@ -5,26 +5,29 @@ import { clsx } from 'clsx'
 import { useCallback, useState } from 'react'
 
 import type { NextPage } from 'next'
-import type { FormEvent} from 'react';
+import type { FormEvent } from 'react'
 
 const Create: NextPage = () => {
   const [showError, setShowError] = useState(false)
   const [showErrorTimeoutId, setShowErrorTimeoutId] = useState<ReturnType<
     typeof setTimeout
   > | null>(null)
-  const onSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const onSubmit = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
 
-    setShowError(true)
-    if (showErrorTimeoutId !== null) {
-      clearTimeout(showErrorTimeoutId)
-    }
-    setShowErrorTimeoutId(
-      setTimeout(() => {
-        setShowError(false)
-      }, 2000)
-    )
-  }, [showErrorTimeoutId])
+      setShowError(true)
+      if (showErrorTimeoutId !== null) {
+        clearTimeout(showErrorTimeoutId)
+      }
+      setShowErrorTimeoutId(
+        setTimeout(() => {
+          setShowError(false)
+        }, 2000)
+      )
+    },
+    [showErrorTimeoutId]
+  )
 
   return (
     <div
