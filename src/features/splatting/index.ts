@@ -76,7 +76,7 @@ export const renderSplatting = async (
     height: number
   },
   allowKeyboardControl: ReadonlyRefObject<boolean>,
-  onLoadingChange: (loaded: boolean) => void,
+  onLoadingChange: (loading: boolean) => void,
   wantScreenshot: ReadonlyRefObject<EventTarget | null>,
   signal?: AbortSignal
 ) => {
@@ -505,12 +505,12 @@ export const renderSplatting = async (
     worker.postMessage({ view: viewProj } satisfies ViewMessage)
 
     if (vertexCount > 0) {
-      onLoadingChange(true)
+      onLoadingChange(false)
       gl.uniformMatrix4fv(u_view, false, actualViewMatrix)
       ext.drawArraysInstancedANGLE(gl.TRIANGLE_FAN, 0, 4, vertexCount)
     } else {
       gl.clear(gl.COLOR_BUFFER_BIT)
-      onLoadingChange(false)
+      onLoadingChange(true)
       start = Date.now() + 2000
     }
 
