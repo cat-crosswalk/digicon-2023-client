@@ -23,14 +23,14 @@ export const HistoryElement: React.FC<Props> = ({ text, onRemove }) => {
         href={`/search/${encodeURIComponent(text)}`}
         className={clsx('flex', 'items-center', 'gap-2')}
       >
-        <HistoryIcon className={clsx('square-4', 'fill-current')} />
+        <HistoryIcon className={clsx('square-5', 'fill-current')} />
         <span className={clsx('text-base')}>{text}</span>
       </Link>
       <button
-        className={clsx('square-5', 'grid', 'place-items-center')}
+        className={clsx('square-6', 'grid', 'place-items-center')}
         onClick={() => onRemove(text)}
       >
-        <CloseIcon className={clsx('square-4', 'fill-current')} />
+        <CloseIcon className={clsx('square-5', 'fill-current')} />
       </button>
     </div>
   )

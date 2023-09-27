@@ -58,7 +58,7 @@ export const SearchBox: React.FC<Props> = ({
         )}
       >
         {!hideIcon && (
-          <SearchIcon className={clsx('square-4', 'fill-text-secondary')} />
+          <SearchIcon className={clsx('square-5', 'fill-text-secondary')} />
         )}
         <input
           ref={inputRef}
