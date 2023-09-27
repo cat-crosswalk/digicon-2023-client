@@ -1,10 +1,12 @@
 import { clsx } from 'clsx'
 import React from 'react'
 
+import { getWorks } from '@/api/getWorks'
 import { Preview } from '@/components/Preview'
-import { dummyVideoData } from '@/utils/dummy'
 
-export const Relation: React.FC = () => {
+export const Relation: React.FC = async () => {
+  const works = await getWorks()
+
   return (
     <section
       className={clsx('px-2', 'py-4', 'border-t-1', 'border-t-ui-primary')}
@@ -15,13 +17,13 @@ export const Relation: React.FC = () => {
         類似したポスト
       </h2>
       <div className={clsx('mt-1', 'grid', 'grid-cols-2', 'gap-2', 'w-full')}>
-        {dummyVideoData.map(({ id, title, thumb, source }) => (
+        {works.map(({ id, title, thumbUrl, videoUrl }) => (
           <Preview
             key={id}
             id={id}
             title={title}
-            thumbUrl={thumb}
-            videoUrl={source}
+            thumbUrl={thumbUrl}
+            videoUrl={videoUrl}
           />
         ))}
       </div>
