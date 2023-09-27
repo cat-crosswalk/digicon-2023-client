@@ -54,8 +54,8 @@ export const View: React.FC<Props> = ({ id }) => {
     )
   }, [])
 
-  const onLoadingChange = useCallback((loaded: boolean) => {
-    setIsLoading(loaded)
+  const onLoadingChange = useCallback((isLoading: boolean) => {
+    setIsLoading(isLoading)
   }, [])
 
   // NOTE: 参照を同じにするために useRef を使う
