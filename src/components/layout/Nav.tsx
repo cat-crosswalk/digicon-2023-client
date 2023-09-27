@@ -45,9 +45,8 @@ const Routes = [
     icon: <FavoriteIcon {...iconProps} />,
     iconActive: <FavoriteIconFill {...iconProps} />,
   },
-  // FIXME: favorite にしてるのはてきとう trailing slash をつけて key の重複を防ぐ
   {
-    path: '/favorite/',
+    path: '/me',
     icon: <PersonIcon {...iconProps} />,
     iconActive: <PersonIconFill {...iconProps} />,
   },
