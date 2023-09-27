@@ -26,6 +26,7 @@ export const Preview: React.FC<Props> = ({ id, title, imgUrl, videoUrl }) => {
         'overflow-hidden',
         'bg-slate-300',
         'grid',
+        'z-10',
         'place-items-center',
         'bg-[image:var(--bg-image)]',
         'bg-cover',

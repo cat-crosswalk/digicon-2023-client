@@ -17,7 +17,16 @@ const Home: NextPage = () => {
           'skeleton-orange-300'
         )}
       />
-      <div className={clsx('grid', 'grid-cols-2', 'px-2', 'gap-2', 'w-full')}>
+      <div
+        className={clsx(
+          'grid',
+          'grid-cols-2',
+          'px-2',
+          'gap-2',
+          'w-full',
+          'auto-rows-max'
+        )}
+      >
         {dummyVideoData.map(({ id, title, thumb, source }) => (
           <Preview
             key={id}
