@@ -47,7 +47,7 @@ export const SearchBox: React.FC<Props> = ({
       <div
         className={clsx(
           'px-2',
-          'py-1',
+          'py-2',
           'rounded-lg',
           'bg-bg-secondary',
           !hideIcon && clsx('grid', 'grid-cols-[max-content,1fr]', 'gap-2'),
