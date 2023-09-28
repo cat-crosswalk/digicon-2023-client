@@ -12,11 +12,14 @@ import { buttonStyle } from './styles/buttonStyle'
 import type { Metadata, NextPage, ResolvingMetadata } from 'next'
 
 export async function generateMetadata(
-  { params: { id }, queryParams }: { params: { id: string }, queryParams: Record<string, string> },
+  {
+    params: { id },
+    searchParams,
+  }: { params: { id: string }; searchParams: Record<string, string> },
   _parent: ResolvingMetadata
 ): Promise<Metadata> {
   const work = await getWork(id)
-  const expanded = queryParams.expanded !== undefined
+  const expanded = searchParams.expanded !== undefined
 
   return {
     title: `${work.title} | Mikage`,

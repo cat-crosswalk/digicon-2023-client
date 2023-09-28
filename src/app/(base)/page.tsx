@@ -11,7 +11,7 @@ const Home: NextPage = async () => {
 
   return (
     <div className={clsx('flex', 'flex-col', 'items-center', 'py-8', 'gap-8')}>
-      <Icon width={60} height={60} viewBox="0 0 512 512" />
+      <Icon width={60} height={60} viewBox='0 0 512 512' />
       <div
         className={clsx(
           'grid',
