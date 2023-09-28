@@ -12,17 +12,21 @@ import { buttonStyle } from './styles/buttonStyle'
 import type { Metadata, NextPage, ResolvingMetadata } from 'next'
 
 export async function generateMetadata(
-  { params: { id } }: { params: { id: string } },
+  { params: { id }, queryParams }: { params: { id: string }, queryParams: Record<string, string> },
   _parent: ResolvingMetadata
 ): Promise<Metadata> {
   const work = await getWork(id)
+  const expanded = queryParams.expanded !== undefined
 
   return {
-    title: work.title,
+    title: `${work.title} | Mikage`,
     description: work.description,
     openGraph: {
-      title: work.title,
+      title: `${work.title} | Mikage`,
       description: work.description,
+      url: `https://mikage.trap.show/${id}${expanded ? '?expanded' : ''}`,
+      type: 'article',
+      siteName: 'Mikage',
       images: [
         {
           url: work.thumbUrl,

@@ -4,9 +4,9 @@
   "display": "fullscreen",
   "scope": "/",
   "start_url": "/",
-  "name": "mikake",
-  "short_name": "mikake",
-  "description": "",
+  "name": "Mikage",
+  "short_name": "Mikage",
+  "description": "世界をまるごと保存。写真の中を歩く体験を",
   "icons": [
     {
       "src": "/icon-512x512.png",
