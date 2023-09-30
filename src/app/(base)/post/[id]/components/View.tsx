@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-import { renderSplatting } from '@/features/splatting'
+import { renderSplatting } from '@/features/splatting-three'
 import { useWindowSize } from '@/utils/useWindowSize'
 
 import { buttonStyle } from '../styles/buttonStyle'
