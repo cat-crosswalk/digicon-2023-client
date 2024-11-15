@@ -19,6 +19,6 @@
     "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "clsx",
     "body": ["className={clsx($1)}"],
-    "description": "className with clsx"
-  }
+    "description": "className with clsx",
+  },
 }

@@ -222,8 +222,8 @@ export const renderSplatting = async (
         e.deltaMode === 1
           ? lineHeight
           : e.deltaMode === 2
-          ? canvasSize.height
-          : 1
+            ? canvasSize.height
+            : 1
       let inv = invert4(viewMatrix)
       if (inv === null) {
         throw new Error('inv is null')

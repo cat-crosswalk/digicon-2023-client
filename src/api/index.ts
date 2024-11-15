@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 
-import { dummyVideoDataMap } from '@/utils/dummy'
+// NOTE: ダミーデータを使う場合はここから使う
+// import { dummyVideoDataMap } from '@/utils/dummy'
 
 import type { RawWork } from './model'
 import type { Dayjs } from 'dayjs'

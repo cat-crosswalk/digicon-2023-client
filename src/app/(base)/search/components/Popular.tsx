@@ -4,7 +4,6 @@ import { getWorks } from '@/api/getWorks'
 
 import { PopularTagElement } from './PopularTagElement'
 
-
 export const Popular: React.FC = async () => {
   const works = await getWorks()
 

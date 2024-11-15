@@ -7,7 +7,7 @@ import type { RawWork } from './model'
 
 export const getWork = async (id: string): Promise<Work> => {
   const response = await fetch(resourcesJsonUrl, {
-    cache: 'no-store'
+    cache: 'no-store',
   })
   const data: RawWork[] = await response.json()
   const favoritesMap = await getFavorites()
