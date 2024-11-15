@@ -5,7 +5,7 @@ import { dummyVideoDataMap } from '@/utils/dummy'
 import type { RawWork } from './model'
 import type { Dayjs } from 'dayjs'
 
-const RESOURCE_BASE_URL = 'https://d1ie3vue30kkmc.cloudfront.net/resources'
+const RESOURCE_BASE_URL = process.env.RESOURCE_BASE_URL
 
 export const resourcesJsonUrl = `${RESOURCE_BASE_URL}/resources.json`
 export const idToResourceUrl = (id: string) => ({
