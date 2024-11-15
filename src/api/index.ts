@@ -5,13 +5,14 @@ import { dummyVideoDataMap } from '@/utils/dummy'
 import type { RawWork } from './model'
 import type { Dayjs } from 'dayjs'
 
-const RESOURCE_BASE_URL = process.env.RESOURCE_BASE_URL
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
-export const resourcesJsonUrl = `${RESOURCE_BASE_URL}/resources.json`
+const resourcesBaseUrl = `${BASE_URL}/resources`
+export const resourcesJsonUrl = `${resourcesBaseUrl}/resources.json`
 export const idToResourceUrl = (id: string) => ({
-  thumb: `${RESOURCE_BASE_URL}/thumb_${id}.png`,
-  video: `${RESOURCE_BASE_URL}/video_${id}.mp4`,
-  model: `${RESOURCE_BASE_URL}/model_${id}.splat`,
+  thumb: `${resourcesBaseUrl}/thumb_${id}.png`,
+  video: `${resourcesBaseUrl}/video_${id}.mp4`,
+  model: `${resourcesBaseUrl}/model_${id}.splat`,
 })
 
 export interface Work {
