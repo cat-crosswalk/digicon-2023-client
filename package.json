@@ -9,7 +9,8 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "fmt": "prettier --write . --cache",
-    "fix": "pnpm run lint:fix && pnpm run fmt"
+    "fix": "pnpm run lint:fix && pnpm run fmt",
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@material-symbols/svg-400": "^0.27.0",
