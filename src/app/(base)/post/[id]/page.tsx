@@ -46,9 +46,9 @@ export async function generateMetadata(
 }
 
 const Post: NextPage<{
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }> = async ({ params }) => {
   const { id } = await params
   const work = await getWork(id)

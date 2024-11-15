@@ -10,10 +10,11 @@ import { SearchBox } from '../components/SearchBox'
 import type { NextPage } from 'next'
 
 const SearchResult: NextPage<{
-  params: {
+  params: Promise<{
     word: string
-  }
-}> = async ({ params: { word } }) => {
+  }>
+}> = async ({ params }) => {
+  const { word } = await params
   const works = await getWorks()
 
   return (
