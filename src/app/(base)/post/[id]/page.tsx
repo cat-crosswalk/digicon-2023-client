@@ -13,13 +13,17 @@ import type { Metadata, NextPage, ResolvingMetadata } from 'next'
 
 export async function generateMetadata(
   {
-    params: { id },
+    params,
     searchParams,
-  }: { params: { id: string }; searchParams: Record<string, string> },
+  }: {
+    params: Promise<{ id: string }>
+    searchParams: Promise<Record<string, string>>
+  },
   _parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const { id } = await params
   const work = await getWork(id)
-  const expanded = searchParams.expanded !== undefined
+  const expanded = (await searchParams).expanded !== undefined
 
   return {
     title: `${work.title} | Mikage`,
@@ -45,7 +49,8 @@ const Post: NextPage<{
   params: {
     id: string
   }
-}> = async ({ params: { id } }) => {
+}> = async ({ params }) => {
+  const { id } = await params
   const work = await getWork(id)
 
   return (

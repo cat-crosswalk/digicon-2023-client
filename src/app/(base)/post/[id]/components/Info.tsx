@@ -5,6 +5,7 @@ import LocationOnIcon from '@material-symbols/svg-400/outlined/location_on.svg'
 import ShareIcon from '@material-symbols/svg-400/outlined/share.svg'
 import { clsx } from 'clsx'
 import Link from 'next/link'
+import useSWR from 'swr'
 
 import { getWork } from '@/api/getWork'
 
@@ -13,8 +14,10 @@ interface Props {
   onFavorite?: (id: string, value: boolean) => void
   onShare?: () => void
 }
-export const Info: React.FC<Props> = async ({ id, onFavorite, onShare }) => {
-  const work = await getWork(id)
+export const Info: React.FC<Props> = ({ id, onFavorite, onShare }) => {
+  const { data: work } = useSWR(['getWork', id], ([, id]) => getWork(id))
+
+  if (work === undefined) return null
 
   return (
     <div className={clsx('p-4', 'text-text-primary')}>
