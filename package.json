@@ -22,11 +22,11 @@
     "swr": "^2.2.4",
     "tailwind-merge": "^1.14.0"
   },
-  "packageManager": "pnpm@8.7.4",
+  "packageManager": "pnpm@9.13.2",
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=20.0.0",
     "npm": "USE PNPM !!!!!!!!!",
-    "pnpm": ">=8.0.0",
+    "pnpm": ">=9.0.0",
     "yarn": "USE PNPM !!!!!!!!!"
   },
   "devDependencies": {
